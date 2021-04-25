@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+    <title>CoronaApp!!!!</title>
+</head>
+<body>
+    
+<div class="container">
+    <table class="tb1">
+        <thead>
+        <tr>
+            <th>Total cases</th>
+            <th>Total Deaths</th>
+            <th>Recovered</th>
+        </tr>
+    </thead>
+     <tbody>
+         <tr id="data">
+
+         </tr>
+     </tbody>
+
+    </table>
+
+    <button class="btn" onclick="refreshData()">REFRESH</button>
+</div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+init()
+
+function init()
+{
+    var url = "https://api.covid19api.com/summary"
+
+    $.get(url,function(data){
+        data= `  
+           <td>${data.Global.TotalConfirmed}</td>
+           <td class="deaths">${data.Global.TotalDeaths}</td>
+           <td>${data.Global.TotalRecovered}</td>
+
+        `
+
+        $("#data").html(data)
+
+    })
+}
+function refreshData()
+{
+    clearData()
+}
+
+function clearData()
+{
+    $("#data").empty()
+    init()
+}
+
+
+</script>
+</html>
